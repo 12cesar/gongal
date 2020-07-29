@@ -16,7 +16,7 @@
   if ($tipo==="seguirpro") {
     include '../funciones/conexion.php';
 
-    
+
     try {
       $stmt=$conn->prepare('INSERT INTO tabla_producto (nombre_producto, stock_producto, id_op_categoria, id_marca, id_talla, id_color, id_codigo_producto) VALUES (?, ?, ?, ?, ?, ?, ?)');
       $stmt->bind_param('sssssss', $nombre, $stock, $id_op, $id_marca, $talla, $id_color, $id_codigo_producto);
@@ -29,6 +29,7 @@
         $stmt2->execute();
         $vali2=$stmt2->affected_rows;
         if ($vali2==1) {
+          
           $stmt3=$conn->prepare('INSERT INTO tabla_imagen (url_imagen, id_producto) VALUES (?, ?)');
           $stmt3->bind_param('ss', $nombrefile, $id_pro);
           $stmt3->execute();
