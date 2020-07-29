@@ -15,6 +15,8 @@
   $nombrefile=$_FILES['img']['name'];
   if ($tipo==="seguirpro") {
     include '../funciones/conexion.php';
+
+    
     try {
       $stmt=$conn->prepare('INSERT INTO tabla_producto (nombre_producto, stock_producto, id_op_categoria, id_marca, id_talla, id_color, id_codigo_producto) VALUES (?, ?, ?, ?, ?, ?, ?)');
       $stmt->bind_param('sssssss', $nombre, $stock, $id_op, $id_marca, $talla, $id_color, $id_codigo_producto);
