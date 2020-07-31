@@ -2,16 +2,20 @@ window.onload = function() { /*hace que se cargue la función lo que predetermin
     if (document.querySelector('#ocudes')) {
         validarcheck('ocudes'); /* "contenido_a_mostrar" es el nombre que le dimos al DIV */
     }
+    if (document.querySelector('#visuregis')) {
+      document.querySelector('#visuregis').style.visibility='hidden';
+    }
 
 }
 const formulariocategoria = document.querySelector("#formulariocategoria");
 const formularioregistrocliente = document.querySelector('#formularioregistrocliente');
 const formulariosubcategoria = document.querySelector('#formsubca');
 const formularioopcategoria = document.querySelector('#formop');
-const formularioproducto = document.querySelector('#formpro');
 const formularioregistromarca=document.querySelector('#formularioregistromarca');
 const formularioregistrotalla=document.querySelector('#formtalla');
 const formularioregistrocolor=document.querySelector('#formcolor');
+const formularioproducto = document.querySelector('#regispro');
+
 eventListener();
 
 function eventListener() {
@@ -28,9 +32,6 @@ function eventListener() {
     if (formularioopcategoria) {
         formularioopcategoria.addEventListener('submit', crearopcatoria);
     }
-    if (formularioproducto) {
-        formularioproducto.addEventListener('submit', crearproducto);
-    }
     if(formularioregistromarca){
         formularioregistromarca.addEventListener('submit', crearmarca);
     }
@@ -39,6 +40,9 @@ function eventListener() {
     }
     if(formularioregistrocolor){
       formularioregistrocolor.addEventListener('submit', crearcolor);
+    }
+    if (formularioproducto) {
+        formularioproducto.addEventListener('click', crearproducto);
     }
 
 
@@ -172,81 +176,6 @@ function crearopcatoria(e) {
         xhrop.send(datos);
     }
 }
-
-function validarcheck(id) {
-
-    if (document.getElementById) { //se obtiene el id
-        var el = document.getElementById(id); //se define la variable "el" igual a nuestro div
-        el.style.display = (el.style.display == 'none') ? 'block' : 'none'; //damos un atributo display:none que oculta el div
-    }
-}
-
-function crearproducto(e) {
-    e.preventDefault();
-    var nomproducto = document.querySelector('#nombrepro').value;
-    var stock = document.querySelector('#stockpro').value;
-    var id_op = document.querySelector('#id_op_categoria').value;
-    var id_marca = document.querySelector('#id_marca').value;
-    var precio = document.querySelector('#precio').value;
-    var talla = document.querySelector('#id_talla').value;
-    var id_color = document.querySelector('#id_color').value;
-    var img = document.getElementsByName('file')[0].files[0];
-    var tipopro = document.querySelector('#tipopro').value;
-
-    if (document.querySelector('#ocudes').style.display === "none") {
-        var descu = "";
-        var data = new FormData();
-        data.append('nombre', nomproducto);
-        data.append('stock', stock);
-        data.append('id_op', id_op);
-        data.append('id_marca', id_marca);
-        data.append('precio', precio);
-        data.append('id_color', id_color);
-        data.append('talla', talla);
-        data.append('tipo', tipopro);
-        data.append('descuento', descu);
-        data.append('img', img);
-        var xhr = new XMLHttpRequest();
-
-        xhr.open('POST', 'inc/modelos/mod-reg-pro.php', true);
-
-        xhr.onload = function() {
-            if (this.status === 200) {
-                var respuesta = JSON.parse(xhr.responseText);
-                if (respuesta.respuesta === 'correcto') {
-                    alert('resgistrado');
-                }
-            }
-        }
-        xhr.send(data);
-    } else {
-        var descuento = document.querySelector('#descuento').value;
-        var datos = new FormData();
-        datos.append('nombre', nomproducto);
-        datos.append('stock', stock);
-        datos.append('id_op', id_op);
-        datos.append('id_marca', id_marca);
-        datos.append('precio', precio);
-        datos.append('id_color', id_color);
-        datos.append('talla', talla);
-        datos.append('tipo', tipopro);
-        datos.append('descuento', descuento);
-        datos.append('img', img);
-
-        var xhre = new XMLHttpRequest();
-
-        xhre.open('POST', 'inc/modelos/mod-reg-pro.php', true);
-
-        xhre.onload = function() {
-            if (this.status === 200) {
-                var respuesta = JSON.parse(xhre.responseText);
-                console.log(respuesta);
-            }
-        }
-        xhre.send(datos);
-    }
-}
-
 function crearmarca(e) {
     e.preventDefault();
     var nombremarca=document.querySelector('#nombremarca').value;
@@ -306,7 +235,8 @@ function creartalla(e) {
         }
 
     }
-    function crearcolor(e) {
+
+function crearcolor(e) {
       e.preventDefault();
       var nombrecolor=document.querySelector('#nombrecolor').value;
       var tipocolor=document.querySelector('#tipocolor').value;
@@ -331,3 +261,94 @@ function creartalla(e) {
         xhr.send(dato);
       }
     }
+
+
+function validarcheck(id) {
+
+    if (document.getElementById) { //se obtiene el id
+        var el = document.getElementById(id); //se define la variable "el" igual a nuestro div
+        el.style.display = (el.style.display == 'none') ? 'block' : 'none'; //damos un atributo display:none que oculta el div
+    }
+}
+
+function crearproducto(e) {
+    e.preventDefault();
+    var nomproducto = document.querySelector('#nombrepro').value;
+    var stock = document.querySelector('#stockpro').value;
+    var id_op = document.querySelector('#id_op_categoria').value;
+    var id_marca = document.querySelector('#id_marca').value;
+    var precio = document.querySelector('#precio').value;
+    var talla = document.querySelector('#id_talla').value;
+    var id_color = document.querySelector('#id_color').value;
+    var img = document.getElementsByName('file')[0].files[0];
+    var tipopro = document.querySelector('#tipopro').value;
+    console.log(img);
+    if (document.querySelector('#ocudes').style.display === "none") {
+        if (nomproducto==="" || stock==="" || id_op==="" || id_marca=="" || precio==="" || talla==="" || id_color==="" || img===undefined) {
+          alert('Completar todos los campos');
+        }
+        else {
+          var descu = "";
+          var data = new FormData();
+          data.append('nombre', nomproducto);
+          data.append('stock', stock);
+          data.append('id_op', id_op);
+          data.append('id_marca', id_marca);
+          data.append('precio', precio);
+          data.append('id_color', id_color);
+          data.append('talla', talla);
+          data.append('tipo', tipopro);
+          data.append('descuento', descu);
+          data.append('img', img);
+          var xhr = new XMLHttpRequest();
+
+          xhr.open('POST', 'inc/modelos/mod-reg-pro.php', true);
+
+          xhr.onload = function() {
+              if (this.status === 200) {
+                  var respuesta = JSON.parse(xhr.responseText);
+                  if (respuesta.respuesta==="correcto") {
+                    if (confirm("Deseas Registrar el mismo producto?")) {
+                      document.querySelector('#nombrepro').disabled=true;
+                      document.querySelector('#id_op_categoria').disabled=true;
+                      document.querySelector('#id_marca').disabled=true;
+                      document.querySelector('#precio').disabled=true;
+                      document.querySelector('#customSwitch1').disabled=true;
+                      document.querySelector('#codigpro').value=respuesta.codigo_producto;
+                      document.querySelector('#oculregis').style.visibility='hidden';
+                      document.querySelector('#visuregis').style.visibility='visible';
+                      } else {
+                        txt = "You pressed Cancel!";
+                      }
+                  }
+              }
+          }
+          xhr.send(data);
+        }
+    } /*else {
+        var descuento = document.querySelector('#descuento').value;
+        var datos = new FormData();
+        datos.append('nombre', nomproducto);
+        datos.append('stock', stock);
+        datos.append('id_op', id_op);
+        datos.append('id_marca', id_marca);
+        datos.append('precio', precio);
+        datos.append('id_color', id_color);
+        datos.append('talla', talla);
+        datos.append('tipo', tipopro);
+        datos.append('descuento', descuento);
+        datos.append('img', img);
+
+        var xhre = new XMLHttpRequest();
+
+        xhre.open('POST', 'inc/modelos/mod-reg-pro.php', true);
+
+        xhre.onload = function() {
+            if (this.status === 200) {
+                var respuesta = JSON.parse(xhre.responseText);
+                console.log(respuesta);
+            }
+        }
+        xhre.send(datos);
+    }*/
+}

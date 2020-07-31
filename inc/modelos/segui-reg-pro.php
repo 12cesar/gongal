@@ -13,10 +13,9 @@
   $tipo=$_POST['tipo'];
   $nombre_detalle=$_FILES['img']['tmp_name'];
   $nombrefile=$_FILES['img']['name'];
-  if ($tipo==="seguirpro") {
+  move_uploaded_file($nombre_detalle,'../../archivos/'.$nombrefile);
+  if ($tipo==="seguirpro" && $descuento==="") {
     include '../funciones/conexion.php';
-
-
     try {
       $stmt=$conn->prepare('INSERT INTO tabla_producto (nombre_producto, stock_producto, id_op_categoria, id_marca, id_talla, id_color, id_codigo_producto) VALUES (?, ?, ?, ?, ?, ?, ?)');
       $stmt->bind_param('sssssss', $nombre, $stock, $id_op, $id_marca, $talla, $id_color, $id_codigo_producto);
@@ -29,12 +28,13 @@
         $stmt2->execute();
         $vali2=$stmt2->affected_rows;
         if ($vali2==1) {
-          
+
           $stmt3=$conn->prepare('INSERT INTO tabla_imagen (url_imagen, id_producto) VALUES (?, ?)');
           $stmt3->bind_param('ss', $nombrefile, $id_pro);
           $stmt3->execute();
           $respuesta=array(
-            'respuesta'=>'correcto'
+            'respuesta'=>'correcto',
+            'codigo_producto'=>$id_codigo_producto
           );
         }
 

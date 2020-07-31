@@ -144,12 +144,22 @@
                                             </div>
 
                                         </div>
-                                        <div class="row justify-content-end">
+                                        <div class="row justify-content-end" id="oculregis">
                                             <div class="col-md-3">
                                             <input type="hidden" name="" id="tipopro" value="crearpro">
-                                            <button type="submit" class="btn btn-block btn-outline-info">Registrar</button>
+                                            <button type="submit" class="btn btn-block btn-outline-info" id="regispro">Registrar</button>
                                             </div>
 
+                                        </div>
+                                        <div class="row justify-content-end" id="visuregis">
+                                            <div class="col-md-3">
+                                            <input type="hidden" name="" id="tipopro" value="seguirreg">
+                                            <input type="hidden" name="" value="" id="codigpro">
+                                            <button type="submit" class="btn btn-block btn-outline-info" id="seg_reg">Registrar</button>
+                                            </div>
+                                            <div class="col-md-3">
+                                            <button type="submit" class="btn btn-block btn-outline-danger" id="cancelar">Cancelar</button>
+                                            </div>
                                         </div>
                                     </form>
                                 </div>
