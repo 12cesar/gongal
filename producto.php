@@ -153,7 +153,7 @@
                                         </div>
                                         <div class="row justify-content-end" id="visuregis">
                                             <div class="col-md-3">
-                                            <input type="hidden" name="" id="tipopro" value="seguirreg">
+                                            <input type="hidden" name="" id="tipoproducto" value="seguirreg">
                                             <input type="hidden" name="" value="" id="codigpro">
                                             <button type="submit" class="btn btn-block btn-outline-info" id="seg_reg">Registrar</button>
                                             </div>

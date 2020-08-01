@@ -1,6 +1,7 @@
 window.onload = function() { /*hace que se cargue la función lo que predetermina que div estará oculto hasta llamar a la función nuevamente*/
     if (document.querySelector('#ocudes')) {
         validarcheck('ocudes'); /* "contenido_a_mostrar" es el nombre que le dimos al DIV */
+        document.querySelector('#customSwitch1').checked=false;
     }
     if (document.querySelector('#visuregis')) {
       document.querySelector('#visuregis').style.visibility='hidden';
@@ -15,7 +16,7 @@ const formularioregistromarca=document.querySelector('#formularioregistromarca')
 const formularioregistrotalla=document.querySelector('#formtalla');
 const formularioregistrocolor=document.querySelector('#formcolor');
 const formularioproducto = document.querySelector('#regispro');
-
+const formseguriregpro= document.querySelector('#seg_reg');
 eventListener();
 
 function eventListener() {
@@ -43,6 +44,9 @@ function eventListener() {
     }
     if (formularioproducto) {
         formularioproducto.addEventListener('click', crearproducto);
+    }
+    if (formseguriregpro) {
+        formseguriregpro.addEventListener('click', seguriregpro);
     }
 
 
@@ -176,6 +180,7 @@ function crearopcatoria(e) {
         xhrop.send(datos);
     }
 }
+
 function crearmarca(e) {
     e.preventDefault();
     var nombremarca=document.querySelector('#nombremarca').value;
@@ -262,7 +267,6 @@ function crearcolor(e) {
       }
     }
 
-
 function validarcheck(id) {
 
     if (document.getElementById) { //se obtiene el id
@@ -282,7 +286,7 @@ function crearproducto(e) {
     var id_color = document.querySelector('#id_color').value;
     var img = document.getElementsByName('file')[0].files[0];
     var tipopro = document.querySelector('#tipopro').value;
-    console.log(img);
+    console.log(id_marca);
     if (document.querySelector('#ocudes').style.display === "none") {
         if (nomproducto==="" || stock==="" || id_op==="" || id_marca=="" || precio==="" || talla==="" || id_color==="" || img===undefined) {
           alert('Completar todos los campos');
@@ -318,15 +322,28 @@ function crearproducto(e) {
                       document.querySelector('#oculregis').style.visibility='hidden';
                       document.querySelector('#visuregis').style.visibility='visible';
                       } else {
-                        txt = "You pressed Cancel!";
+                        document.querySelector('#nombrepro').value="";
+                        document.querySelector('#id_op_categoria').value="";
+                        document.querySelector('#id_marca').value=null;
+                        document.querySelector('#precio').value="";
+                        document.querySelector('#customSwitch1').value="";
+                        document.querySelector('#descuento').value="";
+                        document.querySelector('#stockpro').value="";
+                        document.querySelector('#id_talla').value="";
+                        document.querySelector('#id_color').value="";
+                        document.getElementsByName('file')[0].files[0]=undefined;
                       }
                   }
               }
           }
           xhr.send(data);
         }
-    } /*else {
-        var descuento = document.querySelector('#descuento').value;
+    } else {
+      var descuento=document.querySelector('#descuento').value;
+      if (nomproducto==="" || stock==="" || id_op==="" || id_marca=="" || precio==="" || talla==="" || id_color==="" || img===undefined || descuento==="") {
+        alert('Completar todos los campos');
+      }else {
+
         var datos = new FormData();
         datos.append('nombre', nomproducto);
         datos.append('stock', stock);
@@ -346,9 +363,141 @@ function crearproducto(e) {
         xhre.onload = function() {
             if (this.status === 200) {
                 var respuesta = JSON.parse(xhre.responseText);
-                console.log(respuesta);
+                if (respuesta.respuesta==="correcto") {
+                  if (confirm("Deseas Registrar el mismo producto?")) {
+                    document.querySelector('#nombrepro').disabled=true;
+                    document.querySelector('#id_op_categoria').disabled=true;
+                    document.querySelector('#id_marca').disabled=true;
+                    document.querySelector('#precio').disabled=true;
+                    document.querySelector('#customSwitch1').disabled=true;
+                    document.querySelector('#descuento').disabled=true;
+                    document.querySelector('#codigpro').value=respuesta.codigo_producto;
+                    document.querySelector('#oculregis').style.visibility='hidden';
+                    document.querySelector('#visuregis').style.visibility='visible';
+                    } else {
+                      txt = "You pressed Cancel!";
+                    }
+                }
             }
         }
         xhre.send(datos);
-    }*/
+      }
+
+    }
+}
+
+function seguriregpro(e)
+{
+  e.preventDefault();
+  var nomproducto = document.querySelector('#nombrepro').value;
+  var stock = document.querySelector('#stockpro').value;
+  var id_op = document.querySelector('#id_op_categoria').value;
+  var id_marca = document.querySelector('#id_marca').value;
+  var precio = document.querySelector('#precio').value;
+  var talla = document.querySelector('#id_talla').value;
+  var id_color = document.querySelector('#id_color').value;
+  var img = document.getElementsByName('file')[0].files[0];
+  var id_codigo_producto=document.querySelector('#codigpro').value;
+  var tipopro = document.querySelector('#tipoproducto').value;
+
+  if (document.querySelector('#ocudes').style.display === "none")
+  {
+    if (nomproducto==="" || stock==="" || id_op==="" || id_marca=="" || precio==="" || talla==="" || id_color==="" || img===undefined) {
+      alert('Completar todos los campos');
+    }
+    else {
+      var descu = "";
+      var data = new FormData();
+      data.append('nombre', nomproducto);
+      data.append('stock', stock);
+      data.append('id_op', id_op);
+      data.append('id_marca', id_marca);
+      data.append('precio', precio);
+      data.append('id_color', id_color);
+      data.append('talla', talla);
+      data.append('tipo', tipopro);
+      data.append('descuento', descu);
+      data.append('id_cod_pro', id_codigo_producto);
+      data.append('img', img);
+
+      var xhr = new XMLHttpRequest();
+
+      xhr.open('POST', 'inc/modelos/segui-reg-pro.php', true);
+
+      xhr.onload = function() {
+          if (this.status === 200) {
+              var respuesta = JSON.parse(xhr.responseText);
+              if (respuesta.respuesta==="correcto") {
+                if (confirm("Deseas Registrar el mismo producto?")) {
+                  document.querySelector('#nombrepro').disabled=true;
+                  document.querySelector('#id_op_categoria').disabled=true;
+                  document.querySelector('#id_marca').disabled=true;
+                  document.querySelector('#precio').disabled=true;
+                  document.querySelector('#customSwitch1').disabled=true;
+                  document.querySelector('#codigpro').value=respuesta.codigo_producto;
+                  document.querySelector('#oculregis').style.visibility='hidden';
+                  document.querySelector('#visuregis').style.visibility='visible';
+                  } else {
+                    document.querySelector('#nombrepro').value="";
+                    document.querySelector('#id_op_categoria').value="true";
+                    document.querySelector('#id_marca').value="";
+                    document.querySelector('#precio').value="";
+                    document.querySelector('#customSwitch1').value="";
+                    document.querySelector('#descuento').value="";
+                    document.querySelector('#stock').value="";
+                    document.querySelector('#id_talla').value="";
+                    document.querySelector('#id_color').value="";
+                    document.getElementsByName('file')[0].files[0]=undefined;
+                  }
+              }
+          }
+      }
+      xhr.send(data);
+
+    }
+  }else {
+    var descuento=document.querySelector('#descuento').value;
+    if (nomproducto==="" || stock==="" || id_op==="" || id_marca=="" || precio==="" || talla==="" || id_color==="" || img===undefined || descuento==="") {
+      alert('Completar todos los campos');
+    }else {
+      var datos = new FormData();
+      datos.append('nombre', nomproducto);
+      datos.append('stock', stock);
+      datos.append('id_op', id_op);
+      datos.append('id_marca', id_marca);
+      datos.append('precio', precio);
+      datos.append('id_color', id_color);
+      datos.append('talla', talla);
+      datos.append('tipo', tipopro);
+      datos.append('descuento', descuento);
+      datos.append('id_cod_pro', id_codigo_producto);
+      datos.append('img', img);
+
+      var xhr = new XMLHttpRequest();
+
+      xhr.open('POST', 'inc/modelos/segui-reg-pro.php', true);
+
+      xhr.onload = function() {
+          if (this.status === 200) {
+              var respuesta = JSON.parse(xhr.responseText);
+              if (respuesta.respuesta==="correcto") {
+                if (confirm("Deseas Registrar el mismo producto?")) {
+                  document.querySelector('#nombrepro').disabled=true;
+                  document.querySelector('#id_op_categoria').disabled=true;
+                  document.querySelector('#id_marca').disabled=true;
+                  document.querySelector('#precio').disabled=true;
+                  document.querySelector('#customSwitch1').disabled=true;
+                  document.querySelector('#codigpro').value=respuesta.codigo_producto;
+                  document.querySelector('#oculregis').style.visibility='hidden';
+                  document.querySelector('#visuregis').style.visibility='visible';
+                  } else {
+                    txt = "You pressed Cancel!";
+                  }
+              }
+          }
+      }
+      xhr.send(datos);
+    }
+  }
+
 }
