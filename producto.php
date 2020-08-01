@@ -38,7 +38,8 @@
                                                 <!-- text input -->
                                                 <div class="form-group">
                                                 <label>Seleccione op_categoria</label>
-                                                <select class="select2" multiple="multiple" data-placeholder="Seleccione una opcion" style="width: 100%;" id="id_op_categoria">
+                                                <select class="form-control select2" style="width: 100%;" id="id_op_categoria">
+                                                <option selected="selected" disabled value="0">Seleccione una opcion</option>
                                                 <?php
                                                 $subop=mostraropcategoria();
                                                 if($subop->num_rows)
@@ -56,7 +57,8 @@
                                                 <!-- text input -->
                                                 <div class="form-group">
                                                 <label>Seleccione Marca</label>
-                                                <select class="select2" multiple="multiple" data-placeholder="Seleccione una opcion" style="width: 100%;" id="id_marca">
+                                                <select class="form-control select2" style="width: 100%;" id="id_marca">
+                                                <option selected="selected" disabled value="0">Seleccione una opcion</option>
                                                 <?php
                                                 $mar=mostrarmarca();
                                                 if($mar->num_rows)
@@ -97,7 +99,8 @@
                                                 <!-- text input -->
                                                 <div class="form-group">
                                                     <label>Seleccione una talla</label>
-                                                    <select class="select2" multiple="multiple" data-placeholder="Seleccione una opcion" style="width: 100%;" id="id_talla">
+                                                    <select class="form-control select2" style="width: 100%;" id="id_talla">
+                                                    <option selected="selected" disabled value="0">Seleccione una opcion</option>
                                                     <?php
                                                     $tall=mostrartalla();
                                                     if($tall->num_rows)
@@ -116,7 +119,8 @@
                                                 <!-- text input -->
                                                 <div class="form-group">
                                                     <label>Seleccione un color</label>
-                                                    <select class="select2" multiple="multiple" data-placeholder="Seleccione una opcion" style="width: 100%;" id="id_color">
+                                                    <select class="form-control select2" style="width: 100%;" id="id_color">
+                                                    <option selected="selected" disabled value="0">Seleccione una opcion</option>
                                                     <?php
                                                     $col=mostrarcolor();
                                                     if($tall->num_rows)

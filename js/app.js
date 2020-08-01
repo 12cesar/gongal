@@ -17,6 +17,7 @@ const formularioregistrotalla=document.querySelector('#formtalla');
 const formularioregistrocolor=document.querySelector('#formcolor');
 const formularioproducto = document.querySelector('#regispro');
 const formseguriregpro= document.querySelector('#seg_reg');
+const formcancelarpro=document.querySelector('#cancelar');
 eventListener();
 
 function eventListener() {
@@ -47,6 +48,9 @@ function eventListener() {
     }
     if (formseguriregpro) {
         formseguriregpro.addEventListener('click', seguriregpro);
+    }
+    if (formcancelarpro) {
+        formcancelarpro.addEventListener('click', cancelarproducto);
     }
 
 
@@ -288,7 +292,7 @@ function crearproducto(e) {
     var tipopro = document.querySelector('#tipopro').value;
     console.log(id_marca);
     if (document.querySelector('#ocudes').style.display === "none") {
-        if (nomproducto==="" || stock==="" || id_op==="" || id_marca=="" || precio==="" || talla==="" || id_color==="" || img===undefined) {
+        if (nomproducto==="" || stock==="" || id_op==="0" || id_marca=="0" || precio==="" || talla==="0" || id_color==="0" || img===undefined) {
           alert('Completar todos los campos');
         }
         else {
@@ -323,15 +327,16 @@ function crearproducto(e) {
                       document.querySelector('#visuregis').style.visibility='visible';
                       } else {
                         document.querySelector('#nombrepro').value="";
-                        document.querySelector('#id_op_categoria').value="";
-                        document.querySelector('#id_marca').value=null;
+                        document.getElementById('id_op_categoria').options.selectedIndex=0;
+                        document.getElementById('id_marca').options.selectedIndex=0;
                         document.querySelector('#precio').value="";
                         document.querySelector('#customSwitch1').value="";
                         document.querySelector('#descuento').value="";
                         document.querySelector('#stockpro').value="";
-                        document.querySelector('#id_talla').value="";
-                        document.querySelector('#id_color').value="";
+                        document.getElementById('id_talla').options.selectedIndex=0;
+                        document.getElementById('id_color').options.selectedIndex=0;
                         document.getElementsByName('file')[0].files[0]=undefined;
+                        location.reload();
                       }
                   }
               }
@@ -340,7 +345,7 @@ function crearproducto(e) {
         }
     } else {
       var descuento=document.querySelector('#descuento').value;
-      if (nomproducto==="" || stock==="" || id_op==="" || id_marca=="" || precio==="" || talla==="" || id_color==="" || img===undefined || descuento==="") {
+      if (nomproducto==="" || stock==="" || id_op==="0" || id_marca=="0" || precio==="" || talla==="0" || id_color==="0" || img===undefined || descuento==="") {
         alert('Completar todos los campos');
       }else {
 
@@ -375,7 +380,17 @@ function crearproducto(e) {
                     document.querySelector('#oculregis').style.visibility='hidden';
                     document.querySelector('#visuregis').style.visibility='visible';
                     } else {
-                      txt = "You pressed Cancel!";
+                      document.querySelector('#nombrepro').value="";
+                      document.getElementById('id_op_categoria').options.selectedIndex=0;
+                      document.getElementById('id_marca').options.selectedIndex=0;
+                      document.querySelector('#precio').value="";
+                      document.querySelector('#customSwitch1').value="";
+                      document.querySelector('#descuento').value="";
+                      document.querySelector('#stockpro').value="";
+                      document.getElementById('id_talla').options.selectedIndex=0;
+                      document.getElementById('id_color').options.selectedIndex=0;
+                      document.getElementsByName('file')[0].files[0]=undefined;
+                      location.reload();
                     }
                 }
             }
@@ -402,7 +417,7 @@ function seguriregpro(e)
 
   if (document.querySelector('#ocudes').style.display === "none")
   {
-    if (nomproducto==="" || stock==="" || id_op==="" || id_marca=="" || precio==="" || talla==="" || id_color==="" || img===undefined) {
+    if (nomproducto==="" || stock==="" || id_op==="0" || id_marca=="0" || precio==="" || talla==="0" || id_color==="0" || img===undefined) {
       alert('Completar todos los campos');
     }
     else {
@@ -439,15 +454,16 @@ function seguriregpro(e)
                   document.querySelector('#visuregis').style.visibility='visible';
                   } else {
                     document.querySelector('#nombrepro').value="";
-                    document.querySelector('#id_op_categoria').value="true";
-                    document.querySelector('#id_marca').value="";
+                    document.getElementById('id_op_categoria').options.selectedIndex=0;
+                    document.getElementById('id_marca').options.selectedIndex=0;
                     document.querySelector('#precio').value="";
                     document.querySelector('#customSwitch1').value="";
                     document.querySelector('#descuento').value="";
-                    document.querySelector('#stock').value="";
-                    document.querySelector('#id_talla').value="";
-                    document.querySelector('#id_color').value="";
+                    document.querySelector('#stockpro').value="";
+                    document.getElementById('id_talla').options.selectedIndex=0;
+                    document.getElementById('id_color').options.selectedIndex=0;
                     document.getElementsByName('file')[0].files[0]=undefined;
+                    location.reload();
                   }
               }
           }
@@ -457,7 +473,7 @@ function seguriregpro(e)
     }
   }else {
     var descuento=document.querySelector('#descuento').value;
-    if (nomproducto==="" || stock==="" || id_op==="" || id_marca=="" || precio==="" || talla==="" || id_color==="" || img===undefined || descuento==="") {
+    if (nomproducto==="" || stock==="" || id_op==="0" || id_marca=="0" || precio==="0" || talla==="0" || id_color==="0" || img===undefined || descuento==="") {
       alert('Completar todos los campos');
     }else {
       var datos = new FormData();
@@ -491,7 +507,17 @@ function seguriregpro(e)
                   document.querySelector('#oculregis').style.visibility='hidden';
                   document.querySelector('#visuregis').style.visibility='visible';
                   } else {
-                    txt = "You pressed Cancel!";
+                    document.querySelector('#nombrepro').value="";
+                    document.getElementById('id_op_categoria').options.selectedIndex=0;
+                    document.getElementById('id_marca').options.selectedIndex=0;
+                    document.querySelector('#precio').value="";
+                    document.querySelector('#customSwitch1').value="";
+                    document.querySelector('#descuento').value="";
+                    document.querySelector('#stockpro').value="";
+                    document.getElementById('id_talla').options.selectedIndex=0;
+                    document.getElementById('id_color').options.selectedIndex=0;
+                    document.getElementsByName('file')[0].files[0]=undefined;
+                    location.reload();
                   }
               }
           }
@@ -500,4 +526,20 @@ function seguriregpro(e)
     }
   }
 
+}
+
+function cancelarproducto(e)
+{
+  e.preventDefault();
+  document.querySelector('#nombrepro').value="";
+  document.getElementById('id_op_categoria').options.selectedIndex=0;
+  document.getElementById('id_marca').options.selectedIndex=0;
+  document.querySelector('#precio').value="";
+  document.querySelector('#customSwitch1').value="";
+  document.querySelector('#descuento').value="";
+  document.querySelector('#stockpro').value="";
+  document.getElementById('id_talla').options.selectedIndex=0;
+  document.getElementById('id_color').options.selectedIndex=0;
+  document.getElementsByName('file')[0].files[0]=undefined;
+  location.reload();
 }
