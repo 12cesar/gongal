@@ -79,4 +79,16 @@
         }
     }
 
+    function mostrarproducto()
+    {
+      try {
+          include 'conexion.php';
+          return $conn->query('SELECT tabla_producto.id_producto, tabla_producto.nombre_producto, tabla_producto.stock_producto, tabla_op_categoria.nombre_op_categoria, tabla_marca.nombre_marca, tabla_talla.nombre_talla, tabla_color.nombre_color, tabla_producto.id_codigo_producto FROM tabla_producto INNER JOIN tabla_op_categoria ON tabla_producto.id_op_categoria=tabla_op_categoria.id_op_categoria INNER JOIN tabla_marca ON tabla_producto.id_marca=tabla_marca.id_marca INNER JOIN tabla_talla ON tabla_producto.id_talla=tabla_talla.id_talla INNER JOIN tabla_color ON tabla_producto.id_color=tabla_color.id_color ORDER BY tabla_producto.id_codigo_producto');
+      } catch (Exception $e) {
+        echo "El error es: " . $e->getMessage();
+        return false;
+      }
+
+    }
+
 ?>
