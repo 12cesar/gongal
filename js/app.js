@@ -18,6 +18,8 @@ const formularioregistrocolor=document.querySelector('#formcolor');
 const formularioproducto = document.querySelector('#regispro');
 const formseguriregpro= document.querySelector('#seg_reg');
 const formcancelarpro=document.querySelector('#cancelar');
+const tabla_producto=document.querySelector('.tb_pro tbody');
+const agstockpro=document.querySelector('#agregar_stock');
 eventListener();
 
 function eventListener() {
@@ -52,6 +54,13 @@ function eventListener() {
     if (formcancelarpro) {
         formcancelarpro.addEventListener('click', cancelarproducto);
     }
+    if (tabla_producto) {
+        tabla_producto.addEventListener('click', tab_pro);
+    }
+    if (agstockpro) {
+        agstockpro.addEventListener('click', agregarstockproducto);
+    }
+
 
 
 }
@@ -401,8 +410,7 @@ function crearproducto(e) {
     }
 }
 
-function seguriregpro(e)
-{
+function seguriregpro(e){
   e.preventDefault();
   var nomproducto = document.querySelector('#nombrepro').value;
   var stock = document.querySelector('#stockpro').value;
@@ -528,8 +536,7 @@ function seguriregpro(e)
 
 }
 
-function cancelarproducto(e)
-{
+function cancelarproducto(e){
   e.preventDefault();
   document.querySelector('#nombrepro').value="";
   document.getElementById('id_op_categoria').options.selectedIndex=0;
@@ -542,4 +549,39 @@ function cancelarproducto(e)
   document.getElementById('id_color').options.selectedIndex=0;
   document.getElementsByName('file')[0].files[0]=undefined;
   location.reload();
+}
+
+function tab_pro(e)
+{
+  if (e.target.parentElement.classList.contains('ag_stock')) {
+   const id_agregar=e.target.parentElement.getAttribute('data-id');
+   document.querySelector('#id_producto').value=id_agregar;
+   console.log(id_agregar);
+  }
+}
+
+function agregarstockproducto(e)
+{
+  e.preventDefault();
+  var stock=document.querySelector('#stock').value;
+  var id=document.querySelector('#id_producto').value;
+if (stock==="") {
+  alert('completar todos los campos');
+}else {
+  var data=new FormData();
+  data.append('stock',stock);
+  data.append('id',id);
+
+  var xhr=new XMLHttpRequest();
+
+  xhr.open('POST', 'inc/modelos/agregar-producto.php', true);
+
+  xhr.onload=function(){
+    if (this.status===200) {
+      var respuesta=JSON.parse(xhr.responseText);
+      console.log(respuesta);
+    }
+  }
+  xhr.send(data);
+}
 }

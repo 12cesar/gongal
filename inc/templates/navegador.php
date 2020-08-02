@@ -167,6 +167,12 @@
                             </a>
                             <ul class="nav nav-treeview">
                               <li class="nav-item">
+                                  <a href="mostrarproducto.php" class="nav-link">
+                                      <i class="far fa-circle nav-icon"></i>
+                                      <p>Mostrar Producto</p>
+                                  </a>
+                              </li>
+                              <li class="nav-item">
                                   <a href="mostrarcategoria.php" class="nav-link">
                                       <i class="far fa-circle nav-icon"></i>
                                       <p>Mostrar Categoria</p>
