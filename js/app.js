@@ -551,8 +551,8 @@ function cancelarproducto(e){
   document.getElementsByName('file')[0].files[0]=undefined;
   location.reload();
 }
-function mostrarNotificacion(mensaje,clase)
-{
+
+function mostrarNotificacion(mensaje,clase){
   const notificacion = document.createElement('div');
   notificacion.classList.add(clase,'notificacion','sombra');
   notificacion.textContent= mensaje;
@@ -568,8 +568,8 @@ function mostrarNotificacion(mensaje,clase)
     }, 3000);
   }, 100);
 }
-function tab_pro(e)
-{
+
+function tab_pro(e){
   if (e.target.parentElement.classList.contains('ag_stock')) {
    const id_agregar=e.target.parentElement.getAttribute('data-id');
    document.querySelector('#id_producto').value=id_agregar;
@@ -578,8 +578,7 @@ function tab_pro(e)
   }
 }
 
-function agregarstockproducto(e)
-{
+function agregarstockproducto(e){
   e.preventDefault();
   var stock=document.querySelector('#stock').value;
   var id=document.querySelector('#id_producto').value;
