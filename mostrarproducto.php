@@ -13,15 +13,15 @@
                     <div class="row">
                         <div class="col-12">
                             <!-- Default box -->
-                            <div class="card card-info">
-                                <div class="card-header">
+                            <div class="card card-info" >
+                                <div class="card-header" >
                                     <h3 class="card-title">Mostrar Categoria</h3>
                                 </div>
                                 <!-- /.card-header -->
                                 <div class="card-body" >
                                 <div class="card">
-              <div class="card-header">
-                <h3 class="card-title">DataTable with default features</h3>
+              <div class="card-header" id="notipro">
+                <h3 class="card-title" id="mostre">DataTable with default features</h3>
               </div>
               <!-- /.card-header -->
               <div class="card-body">
@@ -73,7 +73,7 @@
                   </tbody>
                 </table>
               </div>
-              <div class="modal fade" id="modal-secondary">
+              <div class="modal fade modagrepro" id="modal-secondary">
                 <div class="modal-dialog">
                   <div class="modal-content bg-secondary">
                     <div class="modal-header">
@@ -98,7 +98,7 @@
                       </div>
                       <div class="modal-footer justify-content-between">
                         <button type="button" class="btn btn-outline-light" data-dismiss="modal">Cerrar</button>
-                        <button type="button" class="btn btn-outline-light" id="agregar_stock">Guardar cambios</button>
+                        <button type="button" class="btn btn-outline-light" data-dismiss="modal" id="agregar_stock">Guardar cambios</button>
                       </div>
                     </form>
 
@@ -121,7 +121,7 @@
                     </div>
                     <div class="modal-footer justify-content-between">
                       <button type="button" class="btn btn-outline-light" data-dismiss="modal">Close</button>
-                      <button type="button" class="btn btn-outline-light">Save changes</button>
+                      <button type="button" class="btn btn-outline-light" data-dismiss="modal">Save changes</button>
                     </div>
                   </div>
                   <!-- /.modal-content -->

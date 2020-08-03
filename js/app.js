@@ -20,6 +20,7 @@ const formseguriregpro= document.querySelector('#seg_reg');
 const formcancelarpro=document.querySelector('#cancelar');
 const tabla_producto=document.querySelector('.tb_pro tbody');
 const agstockpro=document.querySelector('#agregar_stock');
+const notipro=document.querySelector('#notipro');
 eventListener();
 
 function eventListener() {
@@ -550,13 +551,30 @@ function cancelarproducto(e){
   document.getElementsByName('file')[0].files[0]=undefined;
   location.reload();
 }
-
+function mostrarNotificacion(mensaje,clase)
+{
+  const notificacion = document.createElement('div');
+  notificacion.classList.add(clase,'notificacion','sombra');
+  notificacion.textContent= mensaje;
+  notipro.insertBefore(notificacion,document.querySelector('div #mostre'));
+  //ocultar y mostrar la notificacion
+  setTimeout(() => {
+    notificacion.classList.add('visible');
+    setTimeout(() => {
+      notificacion.classList.remove('visible');
+      setTimeout(() => {
+        notificacion.remove();
+      }, 500);
+    }, 3000);
+  }, 100);
+}
 function tab_pro(e)
 {
   if (e.target.parentElement.classList.contains('ag_stock')) {
    const id_agregar=e.target.parentElement.getAttribute('data-id');
    document.querySelector('#id_producto').value=id_agregar;
    console.log(id_agregar);
+   console.log(e.target.parentElement);
   }
 }
 
@@ -579,7 +597,13 @@ if (stock==="") {
   xhr.onload=function(){
     if (this.status===200) {
       var respuesta=JSON.parse(xhr.responseText);
-      console.log(respuesta);
+      if (respuesta.respuesta==="correcto") {
+        document.querySelector('#stock').value="";
+        mostrarNotificacion('Stock agregado',"correcto");
+        setTimeout(()=>{
+          location.reload();
+        },3600);
+      }
     }
   }
   xhr.send(data);
