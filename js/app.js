@@ -570,11 +570,58 @@ function mostrarNotificacion(mensaje,clase){
 }
 
 function tab_pro(e){
+
   if (e.target.parentElement.classList.contains('ag_stock')) {
    const id_agregar=e.target.parentElement.getAttribute('data-id');
    document.querySelector('#id_producto').value=id_agregar;
    console.log(id_agregar);
    console.log(e.target.parentElement);
+  }
+  if (e.target.parentElement.classList.contains('ed_pro')) {
+    const id_pro=e.target.parentElement.getAttribute('data-id');
+    var data=new FormData();
+    data.append('id',id_pro);
+    var xhr=new XMLHttpRequest();
+    xhr.open('POST', 'inc/modelos/mod-edit-pro.php',true);
+    xhr.onload=function(){
+      if (this.status===200) {
+        var respuesta=JSON.parse(xhr.responseText);
+        if (respuesta.respuesta==='correcto' && respuesta.des==="0") {
+          var url=String(respuesta.url);
+          document.ready=document.getElementById('nombre').value=respuesta.nombre;
+          document.ready=document.getElementById('sto').value=respuesta.stock;
+          document.ready=document.getElementById('id_op').value=String(respuesta.id_ops);
+          document.ready=document.getElementById('id_mar').value=String(respuesta.id_mar);
+          document.ready=document.getElementById('prec').value=respuesta.prec;
+          document.ready=document.getElementById('customSwitch1').checked=false;
+          document.ready=document.getElementById('ocudes').style.display='none';
+          document.ready=document.getElementById('id_ta').value=String(respuesta.id_ta);
+          document.ready=document.getElementById('id_co').value=String(respuesta.id_co);
+          document.ready=document.getElementById('inputfile').disabled=true;
+          document.ready=document.getElementById('img').src="archivos/"+url;
+          document.ready=document.getElementById('id_imagen').value=url;
+          document.querySelector('#img_sele').style.display="block";
+        }
+        if (respuesta.respuesta==='correcto' && respuesta.des!="0") {
+          var urls=String(respuesta.url);
+          document.ready=document.getElementById('nombre').value=respuesta.nombre;
+          document.ready=document.getElementById('sto').value=respuesta.stock;
+          document.ready=document.getElementById('id_op').value=String(respuesta.id_ops);
+          document.ready=document.getElementById('id_mar').value=String(respuesta.id_mar);
+          document.ready=document.getElementById('prec').value=respuesta.prec;
+          document.ready=document.getElementById('customSwitch1').checked=true;
+          document.ready=document.getElementById('ocudes').style.display='block';
+          document.ready=document.getElementById('des').value=respuesta.des;
+          document.ready=document.getElementById('id_ta').value=String(respuesta.id_ta);
+          document.ready=document.getElementById('id_co').value=String(respuesta.id_co);
+          document.ready=document.getElementById('inputfile').disabled=true;
+          document.ready=document.getElementById('img').src="archivos/"+urls;
+          document.ready=document.getElementById('id_imagen').value=urls;
+          document.querySelector('#img_sele').style.display="block";
+        }
+      }
+    }
+    xhr.send(data);
   }
 }
 
@@ -607,4 +654,14 @@ if (stock==="") {
   }
   xhr.send(data);
 }
+}
+
+function dele_img(){
+    var r=confirm('Estas seguro de eliminar este imagen');
+    if (r===true) {
+      document.querySelector('#img_sele').style.display="none";
+      document.querySelector('#inputfile').disabled=false;
+    }else {
+
+    }
 }

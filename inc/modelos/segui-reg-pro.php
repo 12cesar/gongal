@@ -23,8 +23,8 @@
       $vali=$stmt->affected_rows;
       $id_pro=$stmt->insert_id;
       if ($vali==1) {
-        $stmt2=$conn->prepare('INSERT INTO tabla_precio (precio, descuento, id_producto) VALUES (?, ?, ?)');
-        $stmt2->bind_param('sss', $precio, $descuento, $id_pro);
+        $stmt2=$conn->prepare('INSERT INTO tabla_precio (precio, descuento, descuento_total, id_producto) VALUES (?, ?, ?, ?)');
+        $stmt2->bind_param('ssss', $precio, $descuento, $descuento, $id_pro);
         $stmt2->execute();
         $vali2=$stmt2->affected_rows;
         if ($vali2==1) {
@@ -62,8 +62,8 @@
       $vali=$stmt->affected_rows;
       $id_pro=$stmt->insert_id;
       if ($vali==1) {
-        $stmt2=$conn->prepare('INSERT INTO tabla_precio (precio, descuento, id_producto) VALUES (?, ?, ?)');
-        $stmt2->bind_param('sss', $precio, $descfinal, $id_pro);
+        $stmt2=$conn->prepare('INSERT INTO tabla_precio (precio, descuento, descuento_total, id_producto) VALUES (?, ?, ?. ?)');
+        $stmt2->bind_param('ssss', $precio, $descuento, $descfinal, $id_pro);
         $stmt2->execute();
         $vali2=$stmt2->affected_rows;
         if ($vali2==1) {

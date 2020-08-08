@@ -11,8 +11,9 @@
     $tipo=$_POST['tipo'];
     $nombre_temporal=$_FILES['img']["tmp_name"];
     $nombrefile=$_FILES['img']['name'];
-    move_uploaded_file($nombre_temporal,'../../archivos/'.$nombre);
+    move_uploaded_file($nombre_temporal,'../../archivos/'.$nombrefile);
     if ($tipo==="crearpro" && $descuento==="") {
+
         include '../funciones/conexion.php';
         try {
             $stmt=$conn->prepare('INSERT INTO tabla_codigo_producto (id_codigo_producto) VALUES (NULL)');
@@ -32,8 +33,8 @@
                   $stmt2->execute();
                   $vali2=$stmt2->affected_rows;
                   if ($vali2==1) {
-                      $stmt3=$conn->prepare('INSERT INTO tabla_precio (precio, descuento, id_producto) VALUES (?, ?, ?)');
-                      $stmt3->bind_param('sss', $precio, $descuento, $id_pro);
+                      $stmt3=$conn->prepare('INSERT INTO tabla_precio (precio, descuento, descuento_total, id_producto) VALUES (?, ?, ?, ?)');
+                      $stmt3->bind_param('ssss', $precio, $descuento, $descuento, $id_pro);
                       $stmt3->execute();
                       $respuesta=array(
                           'respuesta'=>'correcto',
@@ -76,8 +77,8 @@
                 $stmt2->execute();
                 $vali2=$stmt2->affected_rows;
                 if ($vali2==1) {
-                    $stmt3=$conn->prepare('INSERT INTO tabla_precio (precio, descuento, id_producto) VALUES (?, ?, ?)');
-                    $stmt3->bind_param('sss', $precio, $descfinal, $id_pro);
+                    $stmt3=$conn->prepare('INSERT INTO tabla_precio (precio, descuento, descuento_total, id_producto) VALUES (?, ?, ?, ?)');
+                    $stmt3->bind_param('ssss', $precio, $descuento, $descfinal, $id_pro);
                     $stmt3->execute();
                     $respuesta=array(
                         'respuesta'=>'correcto',
