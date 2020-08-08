@@ -21,6 +21,7 @@ const formcancelarpro=document.querySelector('#cancelar');
 const tabla_producto=document.querySelector('.tb_pro tbody');
 const agstockpro=document.querySelector('#agregar_stock');
 const notipro=document.querySelector('#notipro');
+const editarproducto=document.querySelector('#editar_producto');
 eventListener();
 
 function eventListener() {
@@ -61,8 +62,9 @@ function eventListener() {
     if (agstockpro) {
         agstockpro.addEventListener('click', agregarstockproducto);
     }
-
-
+    if (editarproducto) {
+        editarproducto.addEventListener('click', editarpro);
+    }
 
 }
 
@@ -588,13 +590,13 @@ function tab_pro(e){
         var respuesta=JSON.parse(xhr.responseText);
         if (respuesta.respuesta==='correcto' && respuesta.des==="0") {
           var url=String(respuesta.url);
-          document.ready=document.getElementById('nombre').value=respuesta.nombre;
+          document.ready=document.getElementById('nompro').value=respuesta.nombre;
           document.ready=document.getElementById('sto').value=respuesta.stock;
           document.ready=document.getElementById('id_op').value=String(respuesta.id_ops);
           document.ready=document.getElementById('id_mar').value=String(respuesta.id_mar);
           document.ready=document.getElementById('prec').value=respuesta.prec;
           document.ready=document.getElementById('customSwitch1').checked=false;
-          document.ready=document.getElementById('ocudes').style.display='none';
+          document.ready=document.getElementById('ocultades').style.display='none';
           document.ready=document.getElementById('id_ta').value=String(respuesta.id_ta);
           document.ready=document.getElementById('id_co').value=String(respuesta.id_co);
           document.ready=document.getElementById('inputfile').disabled=true;
@@ -604,13 +606,13 @@ function tab_pro(e){
         }
         if (respuesta.respuesta==='correcto' && respuesta.des!="0") {
           var urls=String(respuesta.url);
-          document.ready=document.getElementById('nombre').value=respuesta.nombre;
+          document.ready=document.getElementById('nompro').value=respuesta.nombre;
           document.ready=document.getElementById('sto').value=respuesta.stock;
           document.ready=document.getElementById('id_op').value=String(respuesta.id_ops);
           document.ready=document.getElementById('id_mar').value=String(respuesta.id_mar);
           document.ready=document.getElementById('prec').value=respuesta.prec;
           document.ready=document.getElementById('customSwitch1').checked=true;
-          document.ready=document.getElementById('ocudes').style.display='block';
+          document.ready=document.getElementById('ocultades').style.display='block';
           document.ready=document.getElementById('des').value=respuesta.des;
           document.ready=document.getElementById('id_ta').value=String(respuesta.id_ta);
           document.ready=document.getElementById('id_co').value=String(respuesta.id_co);
@@ -664,4 +666,31 @@ function dele_img(){
     }else {
 
     }
+}
+
+function editarpro(e){
+  e.preventDefault();
+  var nombrepro=document.querySelector('#nompro').value;
+  var stock=document.querySelector('#sto').value;
+  var id_op=document.querySelector('#id_op').value;
+  var id_mar=document.querySelector('#id_mar').value;
+  var prec=document.querySelector('#prec').value;
+  var id_tal=document.querySelector('#id_ta').value;
+  var id_co=document.querySelector('#id_co').value;
+  var img=document.getElementsByName('files')[0].files[0];
+  if (document.querySelector('#img_sele').style.display==="none") {
+    if (document.querySelector('#ocultades').style.display==='none') {
+      alert('si');
+    }
+    else {
+      alert('no');
+    }
+  }else {
+    if (document.querySelector('#ocultades').style.display==='none') {
+      alert('hi');
+    }
+    else {
+      alert('ho');
+    }
+  }
 }

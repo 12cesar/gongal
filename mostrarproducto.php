@@ -130,7 +130,7 @@
                                   <!-- text input -->
                                   <div class="form-group">
                                       <label>Nombre del producto</label>
-                                      <input type="text" class="form-control" placeholder="Enter ..."id="nombre">
+                                      <input type="text" class="form-control" placeholder="Enter ..."id="nompro">
                                   </div>
                               </div>
                               <div class="col-sm-12">
@@ -188,12 +188,12 @@
                                   <!-- text input -->
                                   <div class="form-group" id="check">
                                       <div class="custom-control custom-switch">
-                                      <input type="checkbox" class="custom-control-input" id="customSwitch1" onclick="validarcheck('ocudes')">
+                                      <input type="checkbox" class="custom-control-input" id="customSwitch1" onclick="validarcheck('ocultades')">
                                       <label class="custom-control-label" for="customSwitch1">Descuento</label>
                                       </div>
                                   </div>
                               </div>
-                              <div class="col-sm-2" id="ocudes">
+                              <div class="col-sm-2" id="ocultades">
                                   <!-- text input -->
                                   <div class="form-group">
                                       <label>Descuento %</label>
@@ -275,7 +275,7 @@
                     </div>
                     <div class="modal-footer justify-content-between">
                       <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                      <button type="button" class="btn btn-primary">Save changes</button>
+                      <button type="submit" class="btn btn-primary" id="editar_producto">Save changes</button>
                     </div>
                     </form>
 
